@@ -88,6 +88,7 @@ snd-soc-imx-ak4497-objs := imx-ak4497.o
 snd-soc-imx-micfil-objs := imx-micfil.o
 snd-soc-imx-dsp-objs := imx-dsp.o
 snd-soc-imx-hdmi-objs := imx-hdmi.o
+snd-soc-imx-cdnhdmi-objs := imx-cdnhdmi.o
 
 obj-$(CONFIG_SND_SOC_EUKREA_TLV320) += snd-soc-eukrea-tlv320.o
 obj-$(CONFIG_SND_SOC_PHYCORE_AC97) += snd-soc-phycore-ac97.o
@@ -112,5 +113,6 @@ obj-$(CONFIG_SND_SOC_IMX_AK4497) += snd-soc-imx-ak4497.o
 obj-$(CONFIG_SND_SOC_IMX_MICFIL) += snd-soc-imx-micfil.o
 obj-$(CONFIG_SND_SOC_IMX_DSP) += snd-soc-imx-dsp.o
 obj-$(CONFIG_SND_SOC_IMX_HDMI) += snd-soc-imx-hdmi.o
+obj-$(CONFIG_SND_SOC_IMX_CDNHDMI) += snd-soc-imx-cdnhdmi.o
 
 AFLAGS_hdmi_pcm.o := -march=armv7-a -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
