@@ -26,3 +26,4 @@ obj-$(CONFIG_IMX8_MIPI_CSI2) 	  += imx8-mipi-csi2.o
 obj-$(CONFIG_IMX8_MIPI_CSI2_SAM)  += imx8-mipi-csi2-sam.o
 obj-$(CONFIG_IMX8_PARALLEL_CSI)	  += imx8-parallel-csi.o
 obj-$(CONFIG_GMSL_MAX9286)	  += gmsl-max9286.o
+obj-$(CONFIG_IMX8_MEDIA_DEVICE)   += imx8-media-dev.o
