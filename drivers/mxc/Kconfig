@@ -4,6 +4,13 @@ if ARCH_MXC
 
 menu "MXC support drivers"
 
+config MXC_SIM
+	tristate "MXC SIM support"
+	default n
+	help
+	Say Y to get MXC SIM support.
+
+source "drivers/mxc/sim/Kconfig"
 source "drivers/mxc/gpu-viv/Kconfig"
 
 if ARM64
