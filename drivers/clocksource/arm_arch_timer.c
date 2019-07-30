@@ -421,7 +421,7 @@ static const struct arch_timer_erratum_workaround ool_workarounds[] = {
 	{
 		.match_type = ate_match_dt,
 		.id = "fsl,erratum-a008585",
-		.desc = "Freescale erratum a005858",
+		.desc = "Freescale erratum a008585",
 		.read_cntp_tval_el0 = fsl_a008585_read_cntp_tval_el0,
 		.read_cntv_tval_el0 = fsl_a008585_read_cntv_tval_el0,
 		.read_cntpct_el0 = fsl_a008585_read_cntpct_el0,
