@@ -8,3 +8,9 @@ config VIDEO_MXC_PXP_V4L2
           the MXC framebuffer on a video stream.
 
           To compile this driver as a module, choose M here.
+
+config VIDEO_MXC_IPU_OUTPUT
+	tristate "IPU v4l2 output support"
+	depends on VIDEO_MXC_OUTPUT && MXC_IPU
+	help
+	This is the video4linux2 driver for IPU post processing video output.
