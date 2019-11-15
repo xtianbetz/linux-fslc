@@ -211,6 +211,37 @@ done:
 	return 0;
 }
 
+#include <linux/mii.h>
+#include <linux/phy.h>
+
+#ifdef CONFIG_FSL_DPAA2_MAC_USERSPACE_ACCESS
+static int dpaa2_mac_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
+{
+	struct mii_ioctl_data *data = if_mii(ifr);
+
+	switch(cmd) {
+	case SIOCGMIIPHY:
+		if(!dev->phydev)
+			return -EINVAL;
+		data->phy_id = dev->phydev->phy_id;
+		break;
+
+	case SIOCGMIIREG:
+		data->val_out = phy_read(dev->phydev, data->reg_num & 0x1f);
+		break;
+
+	case SIOCSMIIREG:
+		phy_write(dev->phydev, data->reg_num & 0x1f, data->val_in);
+		break;
+
+	default:
+		return -EINVAL;
+	}
+
+	return 0;
+}
+#endif
+
 #ifdef CONFIG_FSL_DPAA2_MAC_NETDEVS
 static netdev_tx_t dpaa2_mac_drop_frame(struct sk_buff *skb,
 					struct net_device *dev)
@@ -396,6 +427,9 @@ static int dpaa2_mac_get_sset_count(struct net_device *dev, int sset)
 static const struct net_device_ops dpaa2_mac_ndo_ops = {
 	.ndo_open		= &dpaa2_mac_open,
 	.ndo_stop		= &dpaa2_mac_stop,
+#ifdef CONFIG_FSL_DPAA2_MAC_USERSPACE_ACCESS
+	.ndo_do_ioctl           = &dpaa2_mac_ioctl,
+#endif
 	.ndo_start_xmit		= &dpaa2_mac_drop_frame,
 	.ndo_get_stats64	= &dpaa2_mac_get_stats,
 };
