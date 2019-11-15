@@ -11,6 +11,14 @@ config FSL_DPAA2_MAC
 	lib and forwards them to MC and receives interrupt from MC whenever
 	a request is made to change the link state.
 
+config FSL_DPAA2_MAC_USERSPACE_ACCESS
+	bool "Expose MAC / PHY register access to userspace"
+	default n
+	depends on FSL_DPAA2_MAC
+	---help---
+	Exposes register access of MAC / PHY to userspace.
+
+	if unsure say N.
 
 config FSL_DPAA2_MAC_NETDEVS
 	bool "Expose net interfaces for PHYs"
