@@ -2111,6 +2111,9 @@ static int dpaa2_eth_setup_mqprio(struct net_device *net_dev,
 	u8 num_tc, num_queues;
 	int i;
 
+	if (type != TC_SETUP_QDISC_MQPRIO)
+		return -EOPNOTSUPP;
+
 	mqprio->hw = TC_MQPRIO_HW_OFFLOAD_TCS;
 	num_queues = dpaa2_eth_queue_count(priv);
 	num_tc = mqprio->num_tc;
@@ -2121,7 +2124,7 @@ static int dpaa2_eth_setup_mqprio(struct net_device *net_dev,
 	if (num_tc  > dpaa2_eth_tc_count(priv)) {
 		netdev_err(net_dev, "Max %d traffic classes supported\n",
 			   dpaa2_eth_tc_count(priv));
-		return -EINVAL;
+		return -EOPNOTSUPP;
 	}
 
 	if (!num_tc) {
