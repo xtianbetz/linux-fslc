@@ -2111,9 +2111,6 @@ static int dpaa2_eth_setup_mqprio(struct net_device *net_dev,
 	u8 num_tc, num_queues;
 	int i;
 
-	if (type != TC_SETUP_QDISC_MQPRIO)
-		return -EOPNOTSUPP;
-
 	mqprio->hw = TC_MQPRIO_HW_OFFLOAD_TCS;
 	num_queues = dpaa2_eth_queue_count(priv);
 	num_tc = mqprio->num_tc;
