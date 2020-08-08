@@ -256,6 +256,38 @@ static void __init imx6q_axi_init(void)
 	}
 }
 
+#define AIPS1_ARB_BASE_ADDR     0x02000000
+#define ATZ1_BASE_ADDR          AIPS1_ARB_BASE_ADDR
+#define AIPS1_OFF_BASE_ADDR     (ATZ1_BASE_ADDR + 0x80000)
+#define MX6_SNVS_BASE_ADDR      (AIPS1_OFF_BASE_ADDR + 0x4C000)
+#define SNVS_SIZE               (1024*16)
+#define SNVS_LPCR 0x38
+
+static void mx6_snvs_poweroff(void)
+{    
+    u32 value;
+    void __iomem *mx6_snvs_base;
+
+    printk("%s() \n", __func__);
+    
+    mx6_snvs_base = ioremap(MX6_SNVS_BASE_ADDR, SNVS_SIZE);
+    if (!mx6_snvs_base) {
+        pr_warn("SNVS ioremap failed!\n");
+        //return;
+    }
+    /*
+     * [D16] Hardware design issue, we cannot put CPU into
+     * suspend mode; otherwise device cannot boot up
+     * due to CPU cannot leave suspend status.
+     */
+    printk("%s()\n", __func__);
+    while(1);
+
+    value = __raw_readl(mx6_snvs_base + SNVS_LPCR);
+    /*set TOP and DP_EN bit*/
+    __raw_writel(value | 0x60, mx6_snvs_base + SNVS_LPCR);
+}
+
 static void __init imx6q_init_machine(void)
 {
 	struct device *parent;
@@ -278,6 +310,8 @@ static void __init imx6q_init_machine(void)
 	cpu_is_imx6q() ?  imx6q_pm_init() : imx6dl_pm_init();
 	imx6q_1588_init();
 	imx6q_axi_init();
+	
+	pm_power_off = mx6_snvs_poweroff;
 }
 
 static void __init imx6q_init_late(void)

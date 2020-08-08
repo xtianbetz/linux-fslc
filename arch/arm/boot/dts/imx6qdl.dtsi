@@ -84,13 +84,13 @@
 		#size-cells = <0>;
 		compatible = "fsl,imx6q-ldb", "fsl,imx53-ldb";
 		gpr = <&gpr>;
-		status = "disabled";
+		status = "okay";
 
 		lvds-channel@0 {
 			#address-cells = <1>;
 			#size-cells = <0>;
 			reg = <0>;
-			status = "disabled";
+			status = "okay";
 
 			port@0 {
 				reg = <0>;
@@ -113,7 +113,7 @@
 			#address-cells = <1>;
 			#size-cells = <0>;
 			reg = <1>;
-			status = "disabled";
+			status = "okay";
 
 			port@0 {
 				reg = <0>;

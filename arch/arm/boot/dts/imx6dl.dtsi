@@ -92,11 +92,13 @@
 			pxp: pxp@20f0000 {
 				reg = <0x020f0000 0x4000>;
 				interrupts = <0 98 IRQ_TYPE_LEVEL_HIGH>;
+				status = "disabled";
 			};
 
 			epdc: epdc@20f4000 {
 				reg = <0x020f4000 0x4000>;
 				interrupts = <0 97 IRQ_TYPE_LEVEL_HIGH>;
+				status = "disabled";
 			};
 		};
 

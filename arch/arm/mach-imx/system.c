@@ -26,6 +26,15 @@
 static void __iomem *wdog_base;
 static struct clk *wdog_clk;
 static int wcr_enable = (1 << 2);
+/*
+ * Some i.MX6 boards use WDOG2 to reset external pmic in bypass mode,
+ * so do WDOG2 reset here. Do not set SRS, since we will
+ * trigger external POR later. Use WDOG1 to reset in ldo-enable
+ * mode. You can set it by "fsl,wdog-reset" in dts.
+ * For i.MX6SX we have to trigger wdog-reset to reset QSPI-NOR flash to
+ * workaround qspi-nor reboot issue whatever ldo-bypass or not.
+ */
+static int wcr_enable_old = (0x14);
 
 /*
  * Reset the system. It is called by machine_restart().
@@ -39,6 +48,7 @@ void mxc_restart(enum reboot_mode mode, const char *cmd)
 		clk_enable(wdog_clk);
 
 	/* Assert SRS signal */
+#if 1
 	imx_writew(wcr_enable, wdog_base);
 	/*
 	 * Due to imx6q errata ERR004346 (WDOG: WDOG SRS bit requires to be
@@ -49,6 +59,11 @@ void mxc_restart(enum reboot_mode mode, const char *cmd)
 	 */
 	imx_writew(wcr_enable, wdog_base);
 	imx_writew(wcr_enable, wdog_base);
+#else
+	imx_writew(wcr_enable_old, wdog_base);
+	imx_writew(wcr_enable_old, wdog_base);
+	imx_writew(wcr_enable_old, wdog_base);
+#endif
 
 	/* wait for reset to assert... */
 	mdelay(500);
