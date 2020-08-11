@@ -1230,8 +1230,10 @@ static int __init imx6q_suspend_init(const struct imx6_pm_socdata *socdata)
 		&imx6_suspend,
 		MX6Q_SUSPEND_OCRAM_SIZE - sizeof(*pm_info));
 
-	goto put_node;
+	goto put_device;
 
+put_device:
+	put_device(&pdev->dev);
 put_node:
 	of_node_put(node);
 
