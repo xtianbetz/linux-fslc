@@ -118,15 +118,65 @@
 		};
 	};
 
-	panel {
-		compatible = "hannstar,hsd100pxn1";
-		backlight = <&backlight_lvds>;
+	panel1 {
+		compatible = "panel-lvds";
+                backlight = <&backlight_lvds>;
 
-		port {
-			panel_in: endpoint {
-				remote-endpoint = <&lvds0_out>;
-			};
-		};
+                data-mapping = "vesa-24";
+                width-mm = <154>;
+                height-mm = <87>;
+
+                panel-timing {
+			clock-frequency = <67200000>;
+			hactive = <1024>;
+			vactive = <600>;
+			hfront-porch = <150>;
+			hsync-len = <76>;
+			hback-porch = <150>;
+			vfront-porch = <60>;
+			vsync-len = <80>;
+			vback-porch = <60>;
+			pixelclk-active = <0>;
+                        hsync-active = <0>;
+                        vsync-active = <0>;
+                };
+
+		 port {
+                        panel1_in: endpoint {
+                                remote-endpoint = <&lvds0_out>;
+                        };
+                };
+	};
+
+	panel2 {
+		compatible = "panel-lvds";
+                backlight = <&backlight_lvds>;
+		status = "disabled";
+
+                data-mapping = "vesa-24";
+                width-mm = <154>;
+                height-mm = <87>;
+
+                panel-timing {
+			clock-frequency = <67200000>;
+			hactive = <1024>;
+			vactive = <600>;
+			hfront-porch = <150>;
+			hsync-len = <76>;
+			hback-porch = <150>;
+			vfront-porch = <60>;
+			vsync-len = <80>;
+			vback-porch = <60>;
+			pixelclk-active = <0>;
+                        hsync-active = <0>;
+                        vsync-active = <0>;
+                };
+
+		 port {
+                        panel2_in: endpoint {
+                                remote-endpoint = <&lvds1_out>;
+                        };
+                };
 	};
 };
 
@@ -703,19 +753,31 @@
 	};
 };
 
-&ldb {
-	status = "okay";
 
-	lvds-channel@1 {
-		fsl,data-mapping = "spwg";
-		fsl,data-width = <18>;
-		primary;
+&ldb {
+        status = "okay";
+
+        lvds-channel@0 {
+                status = "okay";
 
 		port@4 {
 			reg = <4>;
 
 			lvds0_out: endpoint {
-				remote-endpoint = <&panel_in>;
+				remote-endpoint = <&panel1_in>;
+			};
+		};
+	};
+
+	lvds-channel@1 {
+		status = "disabled";
+
+		port@4 {
+			reg = <4>;
+			status = "disabled";
+
+			lvds1_out: endpoint {
+				remote-endpoint = <&panel2_in>;
 			};
 		};
 	};
