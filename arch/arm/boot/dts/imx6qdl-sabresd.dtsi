@@ -194,7 +194,8 @@
 
 &ipu1_csi0 {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_ipu1_csi0>;
+	/* D98 uses these pins for extra UARTs */
+	/* pinctrl-0 = <&pinctrl_ipu1_csi0>; */
 	status = "disabled";
 };
 
