@@ -285,6 +285,11 @@
 	};
 
 	/* D98 does not have a camera port */
+
+	s35390a_rtc@30 {
+		compatible = "sii,s35390a";
+		reg = <0x30>;
+	};
 };
 
 &i2c2 {
@@ -501,6 +506,9 @@
 				MX6QDL_PAD_ENET_TXD1__GPIO1_IO29 0x1b0b0
 				MX6QDL_PAD_EIM_D22__GPIO3_IO22  0x1b0b0
 				MX6QDL_PAD_ENET_CRS_DV__GPIO1_IO25 0x1b0b0
+
+				/* rtc */
+				MX6QDL_PAD_NANDF_CS0__GPIO6_IO11   0xc0000000
 			>;
 		};
 
